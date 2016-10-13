@@ -1,14 +1,15 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
+
+
 namespace Predvajalnik_glasbe_v_CSharpu
 {
-    class Predvajanje
+    class Playback
     {
         private string ukaz; //command
         [DllImport("winmm.dll")] // v program vključimo DLL za delo z multimedijo
-        private static extern long mciSendString(string lpstrCommand, StringBuilder
-        lpstrReturnString, int uReturnLength, int hwdCallback); //funkcija za delo multimedijo
-                                                                //sklicuje se na winmm.dll
+        private static extern long mciSendString(string lpstrCommand, StringBuilder lpstrReturnString, int uReturnLength, int hwdCallback); //funkcija za delo multimedijo
+                                                                                                                                            //sklicuje se na winmm.dll
         public void odpri_skladbo(string datoteka)
         {
             ukaz = "open \"" + datoteka + "\" type MPEGVideo alias MUSIC";
@@ -40,3 +41,5 @@ namespace Predvajalnik_glasbe_v_CSharpu
         }
     }
 }
+
+

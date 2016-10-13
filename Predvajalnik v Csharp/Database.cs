@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Data.SQLite;
-namespace Predvajalnik_glasbe_v_CSharpu
+
+namespace Predvajalnik_v_CSharp
 {
-    class SQLite
+    class Database
     {
         SQLiteConnection povezava_z_bazo;
         //SPREMENJLJIVKE
@@ -23,15 +24,9 @@ namespace Predvajalnik_glasbe_v_CSharpu
 Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
             povezava_z_bazo.Open();
         }
-        public void naredi_bazo()
-        {
-            SQLiteConnection.CreateFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite");
-            povezi();
-            sql = "CREATE TABLE slike_albuma (izvajalec VARCHAR(50) NOT NULL, album VARCHAR(50),slika VARCHAR(75))";
-            SQLiteCommand kreiraj = new SQLiteCommand(sql, povezava_z_bazo);
-            kreiraj.ExecuteNonQuery();
-            povezava_z_bazo.Close();
-        }//naredimo novo podatkovno bazo
+
+      
+        //naredimo novo podatkovno bazo
         public void vnos_slike(string vnos_parametrov)
         {
             povezi();
@@ -87,5 +82,14 @@ Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
             }
             return album_izvajalec;
         }//funkcija preveri,če je v bazi link od slike in če ja ga vrne
+        public void create_db()
+        {
+            SQLiteConnection.CreateFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite");
+            povezi();
+            sql = "CREATE TABLE slike_albuma (izvajalec VARCHAR(50) NOT NULL, album VARCHAR(50),slika VARCHAR(75))";
+            SQLiteCommand kreiraj = new SQLiteCommand(sql, povezava_z_bazo);
+            kreiraj.ExecuteNonQuery();
+            povezava_z_bazo.Close();
+        }
     }
 }

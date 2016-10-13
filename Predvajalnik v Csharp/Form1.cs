@@ -11,10 +11,6 @@ namespace Predvajalnik_v_CSharp
     public partial class Form1 : Form
     {
         
-        [DllImport("wininet.dll")]
-        //Import the ddl to work with the NIC. Will be obsolete.
-        private extern static bool InternetGetConnectedState(out int description, int reservedValue);
-        //A function to check if there's an internet connection. Maybe the function will be obsolete and deleted due to an easier method with try catch, to make it more platform independent.
         public Form1()
         {
             InitializeComponent();
@@ -36,8 +32,10 @@ namespace Predvajalnik_v_CSharp
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite"))// preverimo,če na tej lokaciji osbtaja že kaka baza
             {
-                
-             // new SQLITE.n //Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
+
+               
+               
+                new Database().create_db();// new SQLITE.n//Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
             }
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -50,8 +48,10 @@ namespace Predvajalnik_v_CSharp
         //GLOBAL VARIABLES
         List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
       // Metapodatki metapodatki = new Metapodatki(); //A new object of the metadata class.
-       // SQLite poizvedba = new SQLite(); // SQL class to query the album art link.
-       // Predvajanje glasba = new Predvajanje(); // The class that is going to "play music".
+       Database poizvedba = new Database(); // SQL class to query the album art link.
+       
+      
+        // The class that is going to "play music".
 
         private string globalni_string = ""; 
         bool playing = false;

@@ -70,3 +70,15 @@ E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.exe.config
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.exe
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.pdb
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.exe
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.pdb
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\ParkSquare.Gracenote.dll
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\policy.2.0.taglib-sharp.dll
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\System.Data.SQLite.dll
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\taglib-sharp.dll
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\policy.2.0.taglib-sharp.config
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.csprojResolveAssemblyReference.cache
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.AboutBox1.resources
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Form1.resources
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
+E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
