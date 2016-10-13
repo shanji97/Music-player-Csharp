@@ -28,7 +28,7 @@ Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
             SQLiteConnection.CreateFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite");
             povezi();
             sql = "CREATE TABLE slike_albuma (izvajalec VARCHAR(50) NOT NULL, album VARCHAR(50),slika VARCHAR(75))";
-        SQLiteCommand kreiraj = new SQLiteCommand(sql, povezava_z_bazo);
+            SQLiteCommand kreiraj = new SQLiteCommand(sql, povezava_z_bazo);
             kreiraj.ExecuteNonQuery();
             povezava_z_bazo.Close();
         }//naredimo novo podatkovno bazo

@@ -36,7 +36,8 @@ namespace Predvajalnik_v_CSharp
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite"))// preverimo,če na tej lokaciji osbtaja že kaka baza
             {
-                new SQLite().naredi_bazo(); //Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
+                
+             // new SQLITE.n //Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
             }
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -48,12 +49,12 @@ namespace Predvajalnik_v_CSharp
         }
         //GLOBAL VARIABLES
         List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
-       Metapodatki metapodatki = new Metapodatki(); //A new object of the metadata class.
-        SQLite poizvedba = new SQLite(); // SQL class to query the album art link.
-        Predvajanje glasba = new Predvajanje(); // The class that is going to "play music".
+      // Metapodatki metapodatki = new Metapodatki(); //A new object of the metadata class.
+       // SQLite poizvedba = new SQLite(); // SQL class to query the album art link.
+       // Predvajanje glasba = new Predvajanje(); // The class that is going to "play music".
 
-        private string globalni_string = ""; //niz besedila
-        bool predvajanje = false;
+        private string globalni_string = ""; 
+        bool playing = false;
         bool ponovi = false;
         bool nakljucno = false;
         short klik = 0, sekunde = 0, index = 0, s_nakljucno = 0, s_ponovi = 0; //The index will serve to determine the index of the audio file in the "skladba" collection.              
@@ -86,7 +87,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                glasba.ustavi();
+               // glasba.ustavi();
                 timer1.Stop();
                 trackBar1.Value = 0;
                 sekunde = 0;
@@ -148,15 +149,15 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                if (!predvajanje)
+                if (!playing)
                 {
                     predvajaj(skladba[index]);
                 }
                 else
                 {
-                    glasba.ustavi();
+                 //   glasba.ustavi();
                     timer1.Stop();
-                    predvajanje = false;
+                    playing = false;
                  
                 }
             }
@@ -175,7 +176,7 @@ namespace Predvajalnik_v_CSharp
            p_cas.Text = "";
             sekunde = Convert.ToInt16(trackBar1.Value);
             p_cas.Text = sekunde.ToString(@"hh\:mm\:ss");
-            glasba.isci(sekunde * 1000);
+        //    glasba.isci(sekunde * 1000);
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -234,8 +235,8 @@ namespace Predvajalnik_v_CSharp
         private void metapodatek(string datoteka_za_metapodatke)
         {
             Bitmap slika;
-            metapodatki.Meta_podatki = datoteka_za_metapodatke;
-            datoteka_za_metapodatke = metapodatki.Meta_podatki;
+          //  metapodatki.Meta_podatki = datoteka_za_metapodatke;
+            //datoteka_za_metapodatke = metapodatki.Meta_podatki;
             ushort id = 0;
             Label[] oznake = new Label[] { naslov, izvajalec, album, dolzina };
             foreach (Label oznaka in oznake)
@@ -243,8 +244,8 @@ namespace Predvajalnik_v_CSharp
                 oznaka.Text = datoteka_za_metapodatke.Split(',')[id];
                 id++;
             }
-            poizvedba.iskanje_vnosa = album.Text + "," + izvajalec.Text;
-            if (poizvedba.iskanje_vnosa != "0")
+            //poizvedba.iskanje_vnosa = album.Text + "," + izvajalec.Text;
+           /* if (poizvedba.iskanje_vnosa != "0")
             {
                 slika = new Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
                 + @"\Music Player\AlbumArt\" + album.Text + " " + izvajalec.Text + ".jpg"), new
@@ -279,14 +280,14 @@ namespace Predvajalnik_v_CSharp
                     }
                     error_file(skladba[index]);
                 }
-            }
+            }*/
         }
         private void predvajaj(string audio_file)
         {
             trackBar1.Value = 0;
             sekunde = 0; //sekunde postavimo na nič
             p_cas.Text = "00:00:00"; // posravimo na nula
-            predvajanje = true;
+            playing = true;
             if (!File.Exists(skladba[index]))
             {
                 MessageBox.Show("Skladba s tem imenom, ne obstaja, preverite, če se datoteka nahaja na tem mestu, če ne ste jo morda izbrisali ", "Ne obstaja!");
@@ -302,10 +303,9 @@ namespace Predvajalnik_v_CSharp
             int cas = Convert.ToInt16(TimeSpan.Parse(dolzina.Text).TotalSeconds);
             trackBar1.Maximum = cas;
             timer1.Start();// začnemo s štetjem
-            glasba.odpri_skladbo(skladba[index]);
+          /*  glasba.odpri_skladbo(skladba[index]);
             glasba.predvajaj();
-            poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +
-            metapodatki.Album_art);
+            poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);*/
            
         }
         private bool Preveri_povezavo()
@@ -314,7 +314,7 @@ namespace Predvajalnik_v_CSharp
             {
                 using (var klient = new WebClient())
                 {
-                    using (var probaj_odpreti = klient.OpenRead("https://google.com"))
+                    using (var try_open = klient.OpenRead("https://google.com"))
                     {
                         return true;
                     }
@@ -331,8 +331,8 @@ namespace Predvajalnik_v_CSharp
             listBox1.Items.Clear();
             foreach (string napolni_listbox in seznam)
             {
-                metapodatki.Meta_podatki = napolni_listbox;
-                globalni_string = metapodatki.Meta_podatki.Split(',')[0];
+              //  metapodatki.Meta_podatki = napolni_listbox;
+            //    globalni_string = metapodatki.Meta_podatki.Split(',')[0];
                 listBox1.Items.Add(globalni_string);
             }
         }//funkcija za fillanje lisbox-a
@@ -344,7 +344,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                glasba.ustavi();
+             //   glasba.ustavi();
                 if (Funkcija == "Naprej")
                 {
                     trackBar1.Value = 0;
@@ -393,7 +393,7 @@ namespace Predvajalnik_v_CSharp
                     }
                 }
                 predvajaj(skladba[index]);
-                predvajanje = true;
+                playing = true;
             }
         }
         private void error_file(string vrsta)
@@ -412,8 +412,5 @@ namespace Predvajalnik_v_CSharp
                //pictureBox1.Image = Resource1.flac;
             }
         }
-
-
-
-    }
+   }
 }
