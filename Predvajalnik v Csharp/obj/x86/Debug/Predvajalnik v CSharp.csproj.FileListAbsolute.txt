@@ -1,0 +1,44 @@
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe.config
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\policy.2.0.taglib-sharp.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\System.Data.SQLite.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\taglib-sharp.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\policy.2.0.taglib-sharp.config
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.AboutBox1.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.Form1.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.exe
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe.config
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.exe
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.AboutBox1.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.Form1.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\policy.2.0.taglib-sharp.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\System.Data.SQLite.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\taglib-sharp.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\policy.2.0.taglib-sharp.config
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.csprojResolveAssemblyReference.cache
+C:\Users\uporabnik\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe.config
+C:\Users\uporabnik\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.exe
+C:\Users\uporabnik\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe.config
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.exe
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.exe
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\Predvajalnik v CSharp.pdb
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\policy.2.0.taglib-sharp.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\System.Data.SQLite.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\taglib-sharp.dll
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\bin\x86\Debug\policy.2.0.taglib-sharp.config
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.csprojResolveAssemblyReference.cache
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.AboutBox1.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.Form1.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
+E:\Google Drive\Srednja Poklicna in Tehniška Šola Murska Sobota\Matura\Rewrite\Predvajalnik v C#\Predvajalnik v CSharp\Predvajalnik v CSharp\obj\x86\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
