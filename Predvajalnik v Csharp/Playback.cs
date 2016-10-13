@@ -2,7 +2,7 @@
 using System.Text;
 
 
-namespace Predvajalnik_glasbe_v_CSharpu
+namespace Predvajalnik_v_CSharp
 {
     class Playback
     {
@@ -41,5 +41,3 @@ namespace Predvajalnik_glasbe_v_CSharpu
         }
     }
 }
-
-

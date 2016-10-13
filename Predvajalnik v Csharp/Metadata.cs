@@ -2,9 +2,11 @@
 using System.IO;
 using System.Linq;
 using ParkSquare.Gracenote;
-namespace Predvajalnik_glasbe_v_CSharpu
+
+
+namespace Predvajalnik_v_CSharp
 {
-    class Metapodatki
+    class Metadata
     {
         //SPREMENLJIVKE
         private string audio_file;
@@ -52,7 +54,7 @@ namespace Predvajalnik_glasbe_v_CSharpu
                 datoteka += a_dat.Properties.Duration.ToString(@"hh\:mm\:ss");
             }
             //Programiranje v C# 35
-return datoteka;
+            return datoteka;
         }//funkcija za vračanje metapodatkov
         private string trim_albuma(string trimm, string type)
         {
@@ -106,7 +108,7 @@ Player\AlbumArt\" + album_meta + " " + izvajalec_meta + ".jpg";
                         SearchOptions = SearchOptions.ArtistImage
                     });
                     Slika.Albums.First().Artwork.First().Download(pot); //0 album, 1
-                   // artist, 3 je lokacijađ
+                                                                        // artist, 3 je lokacijađ
                 }
                 catch
                 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Predvajalnik_v_CSharp
@@ -47,19 +46,23 @@ namespace Predvajalnik_v_CSharp
         }
         //GLOBAL VARIABLES
         List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
-      // Metapodatki metapodatki = new Metapodatki(); //A new object of the metadata class.
+    Metadata metapodatki = new Metadata(); //A new object of the metadata class.
        Database poizvedba = new Database(); // SQL class to query the album art link.
-       
-      
-        // The class that is going to "play music".
+       Playback glasba = new Playback();   // This will do the "play music thing".
 
         private string globalni_string = ""; 
         bool playing = false;
         bool ponovi = false;
         bool nakljucno = false;
         short klik = 0, sekunde = 0, index = 0, s_nakljucno = 0, s_ponovi = 0; //The index will serve to determine the index of the audio file in the "skladba" collection.              
-                                                                               //Buttons
-                                                                               //Launching the "AboutBox"
+
+        //Buttons
+        //The "About" section
+        private void oProgramuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutBox1().Show();
+        }
+        //Opening the menu openfile dialog
         private void skladbeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             odpri();
@@ -76,6 +79,7 @@ namespace Predvajalnik_v_CSharp
         {
             Application.Exit();
         }
+        //Checking and keeping an eye on the duration of a song 
         private void timer1_Tick(object sender, EventArgs e)
         {
             TimeSpan cas = TimeSpan.FromSeconds(trackBar1.Value);
@@ -87,7 +91,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-               // glasba.ustavi();
+                glasba.ustavi();
                 timer1.Stop();
                 trackBar1.Value = 0;
                 sekunde = 0;
@@ -129,18 +133,20 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-             
-                ponovi = false;
+              ponovi = false;
             }
         }
+        //On button click music stops and one song before starts to play
         private void button1_Click(object sender, EventArgs e)
         {
             Funkcije_gumbov("Nazaj");
         }
+        //On button click music stops and one song before starts to play
         private void button2_Click(object sender, EventArgs e)
         {
             Funkcije_gumbov("Naprej");
         }
+        //Play/STOP button (STOP is gonna be separated and replaced pause):
         private void button4_Click(object sender, EventArgs e)
         {
             if (listBox1.Items.Count == 0)
@@ -155,29 +161,27 @@ namespace Predvajalnik_v_CSharp
                 }
                 else
                 {
-                 //   glasba.ustavi();
-                    timer1.Stop();
-                    playing = false;
+                 glasba.ustavi();
+                 timer1.Stop();
+                 playing = false;
                  
                 }
             }
         }
-        private void oProgramuToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new AboutBox1().Show();
-        }
+        //On listbox click the song will be changed
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             trackBar1.Value = 0;
+            timer1.Stop();
             Funkcije_gumbov("Listbox");
         }
+        //The trackbar sets the time property to the part of the song we scrolled, returns us the time and seeks the position in the song 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-           p_cas.Text = "";
-            sekunde = Convert.ToInt16(trackBar1.Value);
-            p_cas.Text = sekunde.ToString(@"hh\:mm\:ss");
-        //    glasba.isci(sekunde * 1000);
+          p_cas.Text = Convert.ToInt16(trackBar1.Value).ToString(@"hh\:mm\:ss");
+          glasba.isci(Convert.ToInt16(trackBar1.Value) * 1000);
         }
+        //Enables the random play functionality
         private void button5_Click(object sender, EventArgs e)
         {
             s_nakljucno++;
@@ -192,13 +196,15 @@ namespace Predvajalnik_v_CSharp
                 nakljucno = false;
             }
         }
-        //Funkcije
+        //Fuctions
+        //The function opens the Open file dialog, initializes a string array that helds the path to the music files,
+        //loads them into the collection, plays the first song 
         private void odpri()
         {
             string[] a_datoteke;
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "MP3|*.mp3|WAV|*.wav|FLAC|*.flac|Vse datoteke | *.* ";
-        openFileDialog1.Title = "Izberite več audio datotek (Vsaj 2 datoteki).";
+            openFileDialog1.Filter = "MP3|*.mp3|WAV|*.wav|FLAC|*.flac|Vse datoteke |*.* ";
+            openFileDialog1.Title = "Izberite več audio datotek (Vsaj 2 datoteki).";
             openFileDialog1.Multiselect = true;
             openFileDialog1.InitialDirectory =
             Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
@@ -226,17 +232,16 @@ namespace Predvajalnik_v_CSharp
                 }
                 catch (Exception izjema)
                 {
-                    MessageBox.Show("Izbrane datoteke ni mogoče odpreti" +
-                    Environment.NewLine + "Razlog: " + izjema.ToString(), "Napaka!", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBox.Show("The file could be not opened" +Environment.NewLine + "Razlog: " + izjema.ToString(), "Error!", MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
-        }//funkcija odpre eno ali več audio datotek
+        }
+        //The function gets the current playing file path and retrieves metadata from it. It also sets the album art cover.
         private void metapodatek(string datoteka_za_metapodatke)
         {
             Bitmap slika;
-          //  metapodatki.Meta_podatki = datoteka_za_metapodatke;
-            //datoteka_za_metapodatke = metapodatki.Meta_podatki;
+            metapodatki.Meta_podatki = datoteka_za_metapodatke;
+            datoteka_za_metapodatke = metapodatki.Meta_podatki;
             ushort id = 0;
             Label[] oznake = new Label[] { naslov, izvajalec, album, dolzina };
             foreach (Label oznaka in oznake)
@@ -244,14 +249,16 @@ namespace Predvajalnik_v_CSharp
                 oznaka.Text = datoteka_za_metapodatke.Split(',')[id];
                 id++;
             }
-            //poizvedba.iskanje_vnosa = album.Text + "," + izvajalec.Text;
-           /* if (poizvedba.iskanje_vnosa != "0")
+            poizvedba.iskanje_vnosa = album.Text + "," + izvajalec.Text;
+            if (poizvedba.iskanje_vnosa != "0")
             {
                 slika = new Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
                 + @"\Music Player\AlbumArt\" + album.Text + " " + izvajalec.Text + ".jpg"), new
                 Size(120, 120));
                 pictureBox1.Image = slika;
                 MessageBox.Show("Dela");
+                //change this part of the code  to > if there is no album art cover look for an entry in the link in the database
+                //and fetcj the link from there > i'll rewrite the database class as soon as i can
             }
             else if (poizvedba.iskanje_vnosa == "0")
             {
@@ -275,18 +282,18 @@ namespace Predvajalnik_v_CSharp
                 {
                     if (!Preveri_povezavo())
                     {
-                        MessageBox.Show("Slike albuma nisem uspel pridobiti, ker ni povezave do interneta.\nPreverite dostop do interneta.", "Ni interneta",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Slike albuma nisem uspel pridobiti, ker ni povezave do interneta.\nPreverite dostop do interneta.", "Ni interneta",MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     error_file(skladba[index]);
                 }
-            }*/
+            }
         }
+        //Playing the audio over the playback class and (re)setting the parameters
         private void predvajaj(string audio_file)
         {
             trackBar1.Value = 0;
-            sekunde = 0; //sekunde postavimo na nič
-            p_cas.Text = "00:00:00"; // posravimo na nula
+            sekunde = 0; 
+            p_cas.Text = "00:00:00"; 
             playing = true;
             if (!File.Exists(skladba[index]))
             {
@@ -303,11 +310,13 @@ namespace Predvajalnik_v_CSharp
             int cas = Convert.ToInt16(TimeSpan.Parse(dolzina.Text).TotalSeconds);
             trackBar1.Maximum = cas;
             timer1.Start();// začnemo s štetjem
-          /*  glasba.odpri_skladbo(skladba[index]);
+            glasba.odpri_skladbo(skladba[index]);
             glasba.predvajaj();
-            poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);*/
+            poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
            
         }
+    
+        //The function connects to google to see if it can reach it, if not the program will search for album art.
         private bool Preveri_povezavo()
         {
             try
@@ -325,17 +334,20 @@ namespace Predvajalnik_v_CSharp
                 return false;
             }
         }
-    
+        
+        //The function fills the listbox with the audio files
         private void Napolni_lisbox(List<string> seznam)
         {
             listBox1.Items.Clear();
             foreach (string napolni_listbox in seznam)
             {
-              //  metapodatki.Meta_podatki = napolni_listbox;
-            //    globalni_string = metapodatki.Meta_podatki.Split(',')[0];
-                listBox1.Items.Add(globalni_string);
+              metapodatki.Meta_podatki = napolni_listbox;
+              globalni_string = metapodatki.Meta_podatki.Split(',')[0];
+              listBox1.Items.Add(globalni_string);
             }
-        }//funkcija za fillanje lisbox-a
+        }
+
+        //The function controlls buttons forward, back. It also controls the function to choose the song over the listbox.
         private void Funkcije_gumbov(string Funkcija)
         {
             if (listBox1.Items.Count < 2)
@@ -344,14 +356,13 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-             //   glasba.ustavi();
+              glasba.ustavi();
                 if (Funkcija == "Naprej")
                 {
                     trackBar1.Value = 0;
                     if (nakljucno == true)
                     {
-                        index = Convert.ToInt16(new Random().Next(0,
-                        listBox1.Items.Count));
+                        index = Convert.ToInt16(new Random().Next(0,listBox1.Items.Count));
                     }
                     else
                     {
@@ -396,6 +407,8 @@ namespace Predvajalnik_v_CSharp
                 playing = true;
             }
         }
+
+        //If there is no album art or medata could not be read, generic images will be displayed
         private void error_file(string vrsta)
         {
             if (vrsta.Contains(".wav"))
@@ -404,12 +417,11 @@ namespace Predvajalnik_v_CSharp
             }
             else if (vrsta.Contains(".mp3"))
             {
-             //   pictureBox1.Image = Resource1.mp3;
+             //pictureBox1.Image = Resource1.mp3;
             }
             else if (vrsta.Contains(".flac"))
             {
-
-               //pictureBox1.Image = Resource1.flac;
+             //pictureBox1.Image = Resource1.flac;
             }
         }
    }
