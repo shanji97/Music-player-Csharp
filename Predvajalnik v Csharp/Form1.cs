@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -37,9 +39,16 @@ namespace Predvajalnik_v_CSharp
                 new SQLite().naredi_bazo(); //Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
             }
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count < 2)
+            {
+                odpri();
+            }
+        }
         //GLOBAL VARIABLES
         List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
-        Metapodatki metapodatki = new Metapodatki(); //A new object of the metadata class.
+       Metapodatki metapodatki = new Metapodatki(); //A new object of the metadata class.
         SQLite poizvedba = new SQLite(); // SQL class to query the album art link.
         Predvajanje glasba = new Predvajanje(); // The class that is going to "play music".
 
@@ -51,6 +60,14 @@ namespace Predvajalnik_v_CSharp
                                                                                //Buttons
                                                                                //Launching the "AboutBox"
         private void skladbeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            odpri();
+        }
+        private void audioDatotekaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            odpri();
+        }
+        private void dolzina_Click(object sender, EventArgs e)
         {
             odpri();
         }
@@ -107,11 +124,11 @@ namespace Predvajalnik_v_CSharp
             if (s_ponovi % 2 == 1)
             {
                 ponovi = true;
-                button3.Image = Resource1.ponovi_ne;
+             
             }
             else
             {
-                button3.Image = Resource1.ponovi;
+             
                 ponovi = false;
             }
         }
@@ -140,7 +157,7 @@ namespace Predvajalnik_v_CSharp
                     glasba.ustavi();
                     timer1.Stop();
                     predvajanje = false;
-                    button4.Image = Resource1.predvajaj;
+                 
                 }
             }
         }
@@ -155,8 +172,7 @@ namespace Predvajalnik_v_CSharp
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            Programiranje v C# 29
-p_cas.Text = "";
+           p_cas.Text = "";
             sekunde = Convert.ToInt16(trackBar1.Value);
             p_cas.Text = sekunde.ToString(@"hh\:mm\:ss");
             glasba.isci(sekunde * 1000);
@@ -167,11 +183,11 @@ p_cas.Text = "";
             if (s_nakljucno % 2 == 1)
             {
                 nakljucno = true;
-                button5.Image = Resource1.nakljucno_ne;
+              //  button5.Image = Resource1.nakljucno_ne;
             }
             else
             {
-                button5.Image = Resource1.nakljucno;
+            //    button5.Image = Resource1.nakljucno;
                 nakljucno = false;
             }
         }
@@ -180,8 +196,7 @@ p_cas.Text = "";
         {
             string[] a_datoteke;
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "MP3|*.mp3|WAV|*.wav|FLAC|*.flac|Vse
-        datoteke | *.* ";
+            openFileDialog1.Filter = "MP3|*.mp3|WAV|*.wav|FLAC|*.flac|Vse datoteke | *.* ";
         openFileDialog1.Title = "Izberite več audio datotek (Vsaj 2 datoteki).";
             openFileDialog1.Multiselect = true;
             openFileDialog1.InitialDirectory =
@@ -231,8 +246,7 @@ p_cas.Text = "";
             poizvedba.iskanje_vnosa = album.Text + "," + izvajalec.Text;
             if (poizvedba.iskanje_vnosa != "0")
             {
-                slika = new
-                Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                slika = new Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
                 + @"\Music Player\AlbumArt\" + album.Text + " " + izvajalec.Text + ".jpg"), new
                 Size(120, 120));
                 pictureBox1.Image = slika;
@@ -260,12 +274,10 @@ p_cas.Text = "";
                 {
                     if (!Preveri_povezavo())
                     {
-                        MessageBox.Show("Slike albuma nisem uspel pridobiti, ker ni
-                        povezave do interneta.\nPreverite dostop do interneta.", "Ni interneta",
+                        MessageBox.Show("Slike albuma nisem uspel pridobiti, ker ni povezave do interneta.\nPreverite dostop do interneta.", "Ni interneta",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    Programiranje v C# 31
-error_file(skladba[index]);
+                    error_file(skladba[index]);
                 }
             }
         }
@@ -277,8 +289,7 @@ error_file(skladba[index]);
             predvajanje = true;
             if (!File.Exists(skladba[index]))
             {
-                MessageBox.Show("Skladba s tem imenom, ne obstaja, preverite, če se
-                datoteka nahaja na tem mestu, če ne ste jo morda izbrisali ", "Ne obstaja!");
+                MessageBox.Show("Skladba s tem imenom, ne obstaja, preverite, če se datoteka nahaja na tem mestu, če ne ste jo morda izbrisali ", "Ne obstaja!");
                 skladba.Remove(skladba[index]);
                 Napolni_lisbox(skladba);
                 if (index >= listBox1.Items.Count)
@@ -295,7 +306,7 @@ error_file(skladba[index]);
             glasba.predvajaj();
             poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +
             metapodatki.Album_art);
-            button4.Image = Resource1.ustavi;
+           
         }
         private bool Preveri_povezavo()
         {
@@ -314,13 +325,7 @@ error_file(skladba[index]);
                 return false;
             }
         }
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
-            if (listBox1.Items.Count < 2)
-            {
-                odpri();
-            }
-        }
+    
         private void Napolni_lisbox(List<string> seznam)
         {
             listBox1.Items.Clear();
@@ -378,12 +383,11 @@ error_file(skladba[index]);
                     else
                     {
                         if ((index - 1) == -1)
-                            Programiranje v C# 33
-{
+                        { 
                             index = Convert.ToInt16(listBox1.Items.Count - 1);
                         }
-else
-{
+                        else
+                        {
                             index--;
                         }
                     }

@@ -96,8 +96,7 @@ Player\AlbumArt\" + album_meta + " " + izvajalec_meta + ".jpg";
             {
                 try
                 { //import Gracenote package
-                    var odjemalec = new GracenoteClient("962650182-
-                    16615324626BA4A3EC0A5EADD71428E5");
+                    var odjemalec = new GracenoteClient("962650182-16615324626BA4A3EC0A5EADD71428E5");
                     var Slika = odjemalec.Search(new SearchCriteria
                     {
                         TrackTitle = ime_skladbe_meta,
