@@ -82,3 +82,4 @@ E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvaja
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Form1.resources
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
+C:\Users\aleks\Documents\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.exe.config

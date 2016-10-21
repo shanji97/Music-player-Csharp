@@ -1,43 +1,43 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
-
-
+//This class handles the audio playback 
 namespace Predvajalnik_v_CSharp
 {
     class Playback
     {
-        private string ukaz; //command
-        [DllImport("winmm.dll")] // v program vključimo DLL za delo z multimedijo
-        private static extern long mciSendString(string lpstrCommand, StringBuilder lpstrReturnString, int uReturnLength, int hwdCallback); //funkcija za delo multimedijo
-                                                                                                                                            //sklicuje se na winmm.dll
-        public void odpri_skladbo(string datoteka)
+        private string command; //command
+        [DllImport("winmm.dll")] // import the multimedija dll
+        private static extern long mciSendString(string lpstrCommand, StringBuilder lpstrReturnString, int uReturnLength, int hwdCallback); 
+
+        public void open_audio_file(string datoteka)
         {
-            ukaz = "open \"" + datoteka + "\" type MPEGVideo alias MUSIC";
-            mciSendString(ukaz, null, 0, 0);
-        }//funkcija odpre skladbo za predvajanje
-        public void predvajaj()
+            command = "open \"" + datoteka + "\" type MPEGVideo alias MUSIC";
+            mciSendString(command, null, 0, 0);
+        }
+
+        public void play()
         {
-            ukaz = "play MUSIC";
-            mciSendString(ukaz, null, 0, 0);
-        }//funkcija začne predvajati skladbo
-        public void ustavi()
+            command= "play MUSIC";
+            mciSendString(command, null, 0, 0);
+        }
+        public void stop()
         {
-            ukaz = "stop MUSIC";
-            mciSendString(ukaz, null, 0, 0);
-            ukaz = "close MUSIC";
-            mciSendString(ukaz, null, 0, 0);
+          command= "stop MUSIC";
+            mciSendString(command, null, 0, 0);
+            command = "close MUSIC";
+            mciSendString(command, null, 0, 0);
         }//funkcija ustavi predvajanje skladbe
         public void ponovi()
         {
-            ukaz = "seek MUSIC to start";
-            mciSendString(ukaz, null, 0, 0);
-            predvajaj();
+           command= "seek MUSIC to start";
+            mciSendString(command, null, 0, 0);
+            play();
         }
         public void isci(int cas)
         {
-            ukaz = "seek MUSIC to " + cas;
-            mciSendString(ukaz, null, 0, 0);
-            predvajaj();
+            command = "seek MUSIC to " + cas;
+            mciSendString(command, null, 0, 0);
+            play();
         }
     }
 }

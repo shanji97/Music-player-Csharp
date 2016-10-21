@@ -5,31 +5,27 @@ namespace Predvajalnik_v_CSharp
 {
     class Database
     {
-        SQLiteConnection povezava_z_bazo;
-        //SPREMENJLJIVKE
+        SQLiteConnection db_connection;
+        //VARIABLES
         private string sql;
-        private string vrstica;
-        //OBJEKTI
-        //LASTNOSTI
+        private string row;
+       
+        //PROPERTIES
         public string iskanje_vnosa
         {
-            get { return vrstica; }
-            set { vrstica = iskanje_vnosa_in_izpis(value); }
+            get { return row; }
+            set {row = iskanje_vnosa_in_izpis(value); }
         }//za vpis izvajalca, albuma in linka slike
-         //METODE
-        private void povezi()
+         //METHODS
+        private void connect_to_db()
         {
-            povezava_z_bazo = new SQLiteConnection("Data Source=" +
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music
-Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
-            povezava_z_bazo.Open();
+           db_connection = new SQLiteConnection("Data Source=" +Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); 
         }
-
-      
-        //naredimo novo podatkovno bazo
+        /*
+       //Method that selects the link of album art cover, the artist and the album name and insert them into the db 
         public void vnos_slike(string vnos_parametrov)
         {
-            povezi();
+            connect_to_db();
             sql = "INSERT INTO slike_albuma (izvajalec, album, slika) VALUES ('" +
             vnos_parametrov.Split(',')[0] + "','" + vnos_parametrov.Split(',')[1] + "','" +
             vnos_parametrov.Split(',')[2] + "')";
@@ -41,17 +37,18 @@ Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
             }
             catch
             { }
-        }//vnos slike v podatkovno bazo
+        }*/
+        //Searching for the album art cover
         private string iskanje_vnosa_in_izpis(string album_izvajalec)
         {
-            povezi();
+            connect_to_db();
             album_izvajalec = "0";
             try
             {
                 sql = "SELECT count(slika) FROM slike_albuma WHERE album='" +
                 album_izvajalec.Split(',')[0] + "' and izvajalec='" + album_izvajalec.Split(',')[1] +
                 "'";
-                SQLiteCommand iskanje = new SQLiteCommand(sql, povezava_z_bazo);
+                SQLiteCommand iskanje = new SQLiteCommand(sql, db_connection);
                 if ((short)iskanje.ExecuteScalar() == 1)
                 {
                     try
@@ -59,7 +56,7 @@ Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
                         sql = "SELECT slika FROM slike_albuma WHERE album='" +
                         album_izvajalec.Split(',')[1] + "' and izvajalec='" + album_izvajalec.Split(',')[0] +
                         "'";
-                        iskanje = new SQLiteCommand(sql, povezava_z_bazo);
+                        iskanje = new SQLiteCommand(sql, db_connection);
                         album_izvajalec = (string)iskanje.ExecuteScalar();
                     }
                     catch
@@ -78,18 +75,20 @@ Player\Povezave_za_pesmi.sqlite" + "; Version=3;"); // ustvarimo povezavo z bazo
             }
             finally
             {
-                povezava_z_bazo.Close();
+                db_connection.Close();
             }
             return album_izvajalec;
-        }//funkcija preveri,če je v bazi link od slike in če ja ga vrne
+        }
+        //Creating the database
         public void create_db()
         {
             SQLiteConnection.CreateFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite");
-            povezi();
-            sql = "CREATE TABLE slike_albuma (izvajalec VARCHAR(50) NOT NULL, album VARCHAR(50),slika VARCHAR(75))";
-            SQLiteCommand kreiraj = new SQLiteCommand(sql, povezava_z_bazo);
-            kreiraj.ExecuteNonQuery();
-            povezava_z_bazo.Close();
+            connect_to_db();
+            sql = "CREATE TABLE album_cover (artist VARCHAR(50) NOT NULL, album VARCHAR(50),external_link VARCHAR(75))";
+            SQLiteCommand create = new SQLiteCommand(sql,db_connection);
+            create.ExecuteNonQuery();
+            db_connection.Close();
         }
     }
-}
+}// This class will be rewritten, the purpose of this class is to save the links of the album art, which is not downloaded with the Graceenote API.
+//There will be also method where you can mannually add the link to the album art.

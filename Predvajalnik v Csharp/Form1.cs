@@ -45,10 +45,10 @@ namespace Predvajalnik_v_CSharp
             }
         }
         //GLOBAL VARIABLES
-        List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
-    Metadata metapodatki = new Metadata(); //A new object of the metadata class.
+       List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
+       Metadata metapodatki = new Metadata(); //A new object of the metadata class.
        Database poizvedba = new Database(); // SQL class to query the album art link.
-       Playback glasba = new Playback();   // This will do the "play music thing".
+       Playback song = new Playback();   // This will do the "play music thing".
 
         private string globalni_string = ""; 
         bool playing = false;
@@ -91,7 +91,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                glasba.ustavi();
+               song.stop();
                 timer1.Stop();
                 trackBar1.Value = 0;
                 sekunde = 0;
@@ -161,7 +161,7 @@ namespace Predvajalnik_v_CSharp
                 }
                 else
                 {
-                 glasba.ustavi();
+                song.stop();
                  timer1.Stop();
                  playing = false;
                  
@@ -179,7 +179,7 @@ namespace Predvajalnik_v_CSharp
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
           p_cas.Text = Convert.ToInt16(trackBar1.Value).ToString(@"hh\:mm\:ss");
-          glasba.isci(Convert.ToInt16(trackBar1.Value) * 1000);
+          song.seek(Convert.ToInt16(trackBar1.Value) * 1000);
         }
         //Enables the random play functionality
         private void button5_Click(object sender, EventArgs e)
@@ -310,9 +310,9 @@ namespace Predvajalnik_v_CSharp
             int cas = Convert.ToInt16(TimeSpan.Parse(dolzina.Text).TotalSeconds);
             trackBar1.Maximum = cas;
             timer1.Start();// začnemo s štetjem
-            glasba.odpri_skladbo(skladba[index]);
-            glasba.predvajaj();
-            poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
+            song.open_audio_file(skladba[index]);
+            song.play();
+     //       poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
            
         }
     
@@ -356,7 +356,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-              glasba.ustavi();
+              song.stop();
                 if (Funkcija == "Naprej")
                 {
                     trackBar1.Value = 0;
