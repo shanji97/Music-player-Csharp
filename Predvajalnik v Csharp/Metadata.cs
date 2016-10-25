@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using ParkSquare.Gracenote;
 
 
@@ -53,7 +54,7 @@ namespace Predvajalnik_v_CSharp
             {
                 datoteka += a_dat.Properties.Duration.ToString(@"hh\:mm\:ss");
             }
-            //Programiranje v C# 35
+   
             return datoteka;
         }//funkcija za vračanje metapodatkov
         private string trim_albuma(string trimm, string type)
@@ -88,12 +89,10 @@ namespace Predvajalnik_v_CSharp
         }//funckija za odrstanjevanje znakov
         private string Prenos_slike(string datoteka)
         {
-            string album_meta = datoteka.Split(',')[0];
-            string izvajalec_meta = datoteka.Split(',')[1];
+            string album = datoteka.Split(',')[0];
+            string artist = datoteka.Split(',')[1];
             string ime_skladbe_meta = datoteka.Split(',')[2];
-            string pot =
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music
-Player\AlbumArt\" + album_meta + " " + izvajalec_meta + ".jpg";
+            string pot =Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album + " " +artist + ".jpg";
             if (!File.Exists(pot))
             {
                 try
@@ -102,20 +101,23 @@ Player\AlbumArt\" + album_meta + " " + izvajalec_meta + ".jpg";
                     var Slika = odjemalec.Search(new SearchCriteria
                     {
                         TrackTitle = ime_skladbe_meta,
-                        AlbumTitle = album_meta,
-                        Artist = izvajalec_meta,
+                        AlbumTitle = album,
+                        Artist = artist,
                         SearchMode = SearchMode.BestMatchWithCoverArt,
                         SearchOptions = SearchOptions.ArtistImage
                     });
-                    Slika.Albums.First().Artwork.First().Download(pot); //0 album, 1
-                                                                        // artist, 3 je lokacijađ
+                    Slika.Albums.First().Artwork.First().Download(pot); 
                 }
                 catch
                 {
-                    pot = "Privzeto";
+                  
+                        string stran= "http://covers.slothradio.com/?adv=&artist="+artist+"&album="+album;
+                    String html = new WebClient().DownloadString(stran);     
+               
                 }
+              
             }
             return pot;
-        }//funkcija za prenos slike albuma
+        }
     }
 }

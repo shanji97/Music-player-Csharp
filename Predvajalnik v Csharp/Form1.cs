@@ -91,7 +91,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                glasba.ustavi();
+                glasba.stop_music();
                 timer1.Stop();
                 trackBar1.Value = 0;
                 sekunde = 0;
@@ -161,7 +161,7 @@ namespace Predvajalnik_v_CSharp
                 }
                 else
                 {
-                 glasba.ustavi();
+                 glasba.pause_song();
                  timer1.Stop();
                  playing = false;
                  
@@ -249,29 +249,33 @@ namespace Predvajalnik_v_CSharp
                 oznaka.Text = datoteka_za_metapodatke.Split(',')[id];
                 id++;
             }
-            poizvedba.iskanje_vnosa = album.Text + "," + izvajalec.Text;
-            if (poizvedba.iskanje_vnosa != "0")
+    //        
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\Music Player\AlbumArt\" + album.Text + " " + izvajalec.Text + ".jpg"))
             {
-                slika = new Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                + @"\Music Player\AlbumArt\" + album.Text + " " + izvajalec.Text + ".jpg"), new
+                slika = new Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+ @"\Music Player\AlbumArt\" + album.Text + " " + izvajalec.Text + ".jpg"), new
                 Size(120, 120));
                 pictureBox1.Image = slika;
-                MessageBox.Show("Dela");
+         
                 //change this part of the code  to > if there is no album art cover look for an entry in the link in the database
                 //and fetcj the link from there > i'll rewrite the database class as soon as i can
             }
-            else if (poizvedba.iskanje_vnosa == "0")
+            else 
             {
-                if (Preveri_povezavo() == true && album.Text != "Neznano" &&
-                izvajalec.Text != "Neznano")
+                if (Preveri_povezavo() == true && album.Text != "Neznano" && izvajalec.Text != "Neznano")
                 {
                     metapodatki.Album_art = album.Text + "," + izvajalec.Text + "," +
                     naslov.Text;
                     if (metapodatki.Album_art != "Privzeto")
                     {
-                        slika = new Bitmap(Image.FromFile(metapodatki.Album_art), new
-                        Size(120, 120));
-                        pictureBox1.Image = slika;
+                        try
+                        {
+                            slika = new Bitmap(Image.FromFile(metapodatki.Album_art), new Size(120, 120));
+                            pictureBox1.Image = slika;
+                        }
+                        catch (Exception a)
+                        {
+                            MessageBox.Show(a.ToString());
+                        }
                     }
                     else
                     {
@@ -282,12 +286,13 @@ namespace Predvajalnik_v_CSharp
                 {
                     if (!Preveri_povezavo())
                     {
-                        MessageBox.Show("Slike albuma nisem uspel pridobiti, ker ni povezave do interneta.\nPreverite dostop do interneta.", "Ni interneta",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //Create an icon and make changes that indicate the 
                     }
                     error_file(skladba[index]);
                 }
             }
         }
+
         //Playing the audio over the playback class and (re)setting the parameters
         private void predvajaj(string audio_file)
         {
@@ -310,9 +315,9 @@ namespace Predvajalnik_v_CSharp
             int cas = Convert.ToInt16(TimeSpan.Parse(dolzina.Text).TotalSeconds);
             trackBar1.Maximum = cas;
             timer1.Start();// začnemo s štetjem
-            glasba.odpri_skladbo(skladba[index]);
-            glasba.predvajaj();
-            poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
+            glasba.open_song(skladba[index]);
+            glasba.play_song();
+            //poizvedba.(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
            
         }
     
@@ -346,7 +351,6 @@ namespace Predvajalnik_v_CSharp
               listBox1.Items.Add(globalni_string);
             }
         }
-
         //The function controlls buttons forward, back. It also controls the function to choose the song over the listbox.
         private void Funkcije_gumbov(string Funkcija)
         {
@@ -356,7 +360,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-              glasba.ustavi();
+              glasba.stop_music();
                 if (Funkcija == "Naprej")
                 {
                     trackBar1.Value = 0;

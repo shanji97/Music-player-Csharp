@@ -82,3 +82,18 @@ E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvaja
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Form1.resources
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
 E:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.exe.config
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.csprojResolveAssemblyReference.cache
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.AboutBox1.resources
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Form1.resources
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik_v_CSharp.Properties.Resources.resources
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.csproj.GenerateResource.Cache
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.exe
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\Predvajalnik v CSharp.pdb
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\ParkSquare.Gracenote.dll
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\policy.2.0.taglib-sharp.dll
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\System.Data.SQLite.dll
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\taglib-sharp.dll
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\bin\Debug\policy.2.0.taglib-sharp.config
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.exe
+D:\Dokumenti\GitHub\Music-player-Csharp\Predvajalnik v CSharp\obj\Debug\Predvajalnik v CSharp.pdb

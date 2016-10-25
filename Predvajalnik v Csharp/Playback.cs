@@ -6,38 +6,43 @@ namespace Predvajalnik_v_CSharp
 {
     class Playback
     {
-        private string ukaz; //command
+        private string command; //command
         [DllImport("winmm.dll")] // v program vključimo DLL za delo z multimedijo
         private static extern long mciSendString(string lpstrCommand, StringBuilder lpstrReturnString, int uReturnLength, int hwdCallback); //funkcija za delo multimedijo
                                                                                                                                             //sklicuje se na winmm.dll
-        public void odpri_skladbo(string datoteka)
+        public void open_song(string file)
         {
-            ukaz = "open \"" + datoteka + "\" type MPEGVideo alias MUSIC";
-            mciSendString(ukaz, null, 0, 0);
+            command = "open \"" + file + "\" type MPEGVideo alias MUSIC";
+            mciSendString(command, null, 0, 0);
         }//funkcija odpre skladbo za predvajanje
-        public void predvajaj()
+        public void play_song()
         {
-            ukaz = "play MUSIC";
-            mciSendString(ukaz, null, 0, 0);
+            command = "play MUSIC";
+            mciSendString(command, null, 0, 0);
         }//funkcija začne predvajati skladbo
-        public void ustavi()
+        public void stop_music()
         {
-            ukaz = "stop MUSIC";
-            mciSendString(ukaz, null, 0, 0);
-            ukaz = "close MUSIC";
-            mciSendString(ukaz, null, 0, 0);
+            command = "stop MUSIC";
+            mciSendString(command, null, 0, 0);
+            command = "close MUSIC";
+            mciSendString(command, null, 0, 0);
         }//funkcija ustavi predvajanje skladbe
+        public void pause_song()
+        {
+            command = "pause MUSIC";
+            mciSendString(command, null, 0, 0);
+        }
         public void ponovi()
         {
-            ukaz = "seek MUSIC to start";
-            mciSendString(ukaz, null, 0, 0);
-            predvajaj();
+            command = "seek MUSIC to start";
+            mciSendString(command, null, 0, 0);
+            play_song();
         }
         public void isci(int cas)
         {
-            ukaz = "seek MUSIC to " + cas;
-            mciSendString(ukaz, null, 0, 0);
-            predvajaj();
+            command = "seek MUSIC to " + cas;
+            mciSendString(command, null, 0, 0);
+            play_song();
         }
     }
 }
