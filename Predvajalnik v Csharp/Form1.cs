@@ -45,9 +45,9 @@ namespace Predvajalnik_v_CSharp
             }
         }
         //GLOBAL VARIABLES
-        List<string> skladba = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
+        List<string> s = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
     Metadata metapodatki = new Metadata(); //A new object of the metadata class.
-       Database poizvedba = new Database(); // SQL class to query the album art link.
+       
        Playback glasba = new Playback();   // This will do the "play music thing".
 
         private string globalni_string = ""; 
@@ -97,7 +97,7 @@ namespace Predvajalnik_v_CSharp
                 sekunde = 0;
                 if (ponovi == true)
                 {
-                    predvajaj(skladba[index]);
+                    predvajaj(s[index]);
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace Predvajalnik_v_CSharp
                             index++;
                         }
                     }
-                    predvajaj(skladba[index]);
+                    predvajaj(s[index]);
                 }
             }
             cas = TimeSpan.FromSeconds(sekunde);
@@ -157,7 +157,7 @@ namespace Predvajalnik_v_CSharp
             {
                 if (!playing)
                 {
-                    predvajaj(skladba[index]);
+                    predvajaj(s[index]);
                 }
                 else
                 {
@@ -214,7 +214,7 @@ namespace Predvajalnik_v_CSharp
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (listBox1.Items.Count == 0)
                 {
-                    album.Text = izvajalec.Text = naslov.Text = "Glasba ni naložena!";
+                    album.Text = izvajalec.Text = naslov.Text = "Unknown";
                 }
             }
             else
@@ -222,10 +222,10 @@ namespace Predvajalnik_v_CSharp
                 try
                 {
                     a_datoteke = openFileDialog1.FileNames;
-                    skladba.AddRange(a_datoteke);
-                    predvajaj(skladba[0]);
+                    s.AddRange(a_datoteke);
+                    predvajaj(s[0]);
                     listBox1.Items.Clear();
-                    Napolni_lisbox(skladba);
+                    Napolni_lisbox(s);
                     Array.Clear(a_datoteke, 0, a_datoteke.Length);
                     klik++;
                     trackBar1.Visible = true;
@@ -261,7 +261,7 @@ namespace Predvajalnik_v_CSharp
             }
             else 
             {
-                if (Preveri_povezavo() == true && album.Text != "Neznano" && izvajalec.Text != "Neznano")
+                if (Preveri_povezavo() && album.Text != "Neznano" && izvajalec.Text != "Neznano")
                 {
                     metapodatki.Album_art = album.Text + "," + izvajalec.Text + "," +
                     naslov.Text;
@@ -279,7 +279,7 @@ namespace Predvajalnik_v_CSharp
                     }
                     else
                     {
-                        error_file(skladba[index]);
+                        error_file(s[index]);
                     }
                 }
                 else
@@ -288,7 +288,7 @@ namespace Predvajalnik_v_CSharp
                     {
                         //Create an icon and make changes that indicate the 
                     }
-                    error_file(skladba[index]);
+                    error_file(s[index]);
                 }
             }
         }
@@ -300,22 +300,22 @@ namespace Predvajalnik_v_CSharp
             sekunde = 0; 
             p_cas.Text = "00:00:00"; 
             playing = true;
-            if (!File.Exists(skladba[index]))
+            if (!File.Exists(s[index]))
             {
                 MessageBox.Show("Skladba s tem imenom, ne obstaja, preverite, če se datoteka nahaja na tem mestu, če ne ste jo morda izbrisali ", "Ne obstaja!");
-                skladba.Remove(skladba[index]);
-                Napolni_lisbox(skladba);
+                s.Remove(s[index]);
+                Napolni_lisbox(s);
                 if (index >= listBox1.Items.Count)
                 {
                     index--;
                 }
-                audio_file = skladba[index];
+                audio_file = s[index];
             }
-            metapodatek(skladba[index]);
+            metapodatek(s[index]);
             int cas = Convert.ToInt16(TimeSpan.Parse(dolzina.Text).TotalSeconds);
             trackBar1.Maximum = cas;
             timer1.Start();// začnemo s štetjem
-            glasba.open_song(skladba[index]);
+            glasba.open_song(s[index]);
             glasba.play_song();
             //poizvedba.(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
            
@@ -407,13 +407,13 @@ namespace Predvajalnik_v_CSharp
                         }
                     }
                 }
-                predvajaj(skladba[index]);
+                predvajaj(s[index]);
                 playing = true;
             }
         }
 
         //If there is no album art or medata could not be read, generic images will be displayed
-        private void error_file(string vrsta)
+        private void error_file(string type)
         {
             if (vrsta.Contains(".wav"))
             {

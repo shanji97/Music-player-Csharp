@@ -9,16 +9,20 @@ namespace Predvajalnik_v_CSharp
         //SPREMENJLJIVKE
         SQLiteCommand command;
 
-        private string sql;
-        private string vrstica;
+        private string sql, row, link;
+       
+
+ 
         //OBJEKTI
         //LASTNOSTI
-    /*    public string iskanje_vnosa
-        {
-            get { return vrstica; }
-            set { vrstica = select_from(value); }
-   }*/
-      
+
+
+
+
+
+
+     
+
 
         //DB connection method
         private void connect_to_db()
@@ -39,7 +43,7 @@ namespace Predvajalnik_v_CSharp
         }
 
         //This method is going to select the link from the database when no album art is available
-        private string select_from(string artist, string album)
+        private string select_link_from_db(string artist, string album)
         {
             connect_to_db();
             string link = "";
@@ -55,6 +59,7 @@ namespace Predvajalnik_v_CSharp
             }
             return link;
         }
+        //This method is going to insert the link of the album cover into the db, because, we don't want to search for it every time
         private void instert_into(string artist,string album,string link)
         {
             connect_to_db();
