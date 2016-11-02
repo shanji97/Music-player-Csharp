@@ -13,7 +13,9 @@ namespace Predvajalnik_v_CSharp
         private string filepath, title, artist, album, link_to_picture, duration, path;
 
         //constructors
+        public Metadata_version_2(string filepath)
         {
+            this.filepath = filepath;
         }
         // properties
        public string Title_of_the_song
