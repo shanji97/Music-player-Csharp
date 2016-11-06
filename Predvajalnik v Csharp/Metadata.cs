@@ -3,15 +3,16 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using ParkSquare.Gracenote;
-
+//This class handles the metadata of the song.
 
 namespace Predvajalnik_v_CSharp
 {
     class Metadata
     {
-        //SPREMENLJIVKE
+        //VARIABLES
         private string audio_file;
-        //LASTNOSTI
+               
+        //PROPERTIES
         public string Meta_podatki
         {
             get { return audio_file; }
@@ -22,9 +23,12 @@ namespace Predvajalnik_v_CSharp
             get { return audio_file; }
             set { audio_file = Prenos_slike(value); }
         }
-        //METODE
+        //METHODS
+        // Getting the metadata from the file with the help from Taglib.
+        // The Taglib library will be removed.
         private string metapodatki(string datoteka)
         {
+            
             TagLib.File a_dat = TagLib.File.Create(datoteka);
             if (a_dat.Tag.Title != null)
             {
@@ -40,7 +44,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                datoteka += "Neznano,";
+                datoteka += "Unknown,";
             }
             if (a_dat.Tag.Album != null)
             {
@@ -48,15 +52,20 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-                datoteka += "Neznano,";
+                datoteka += "Unknown,";
             }
             if (a_dat.Properties.Duration.ToString(@"hh\:mm\:ss") != null)
             {
                 datoteka += a_dat.Properties.Duration.ToString(@"hh\:mm\:ss");
             }
+<<<<<<< HEAD
    
+=======
+            
+>>>>>>> origin/master
             return datoteka;
-        }//funkcija za vračanje metapodatkov
+        }
+        //The method trimms chars like "[,(,),]" and content between them.
         private string trim_albuma(string trimm, string type)
         {
             if (trimm.Contains("["))
@@ -86,17 +95,27 @@ namespace Predvajalnik_v_CSharp
                 trimm = trimm.Replace(",", "");
             }
             return trimm;
-        }//funckija za odrstanjevanje znakov
+        }
+        //Serching for the album art
         private string Prenos_slike(string datoteka)
         {
+<<<<<<< HEAD
             string album = datoteka.Split(',')[0];
             string artist = datoteka.Split(',')[1];
             string ime_skladbe_meta = datoteka.Split(',')[2];
             string pot =Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album + " " +artist + ".jpg";
+=======
+
+            string album_meta = datoteka.Split(',')[0];
+            string izvajalec_meta = datoteka.Split(',')[1];
+            string ime_skladbe_meta = datoteka.Split(',')[2];
+            string pot =
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album_meta + " " + izvajalec_meta + ".jpg";
+>>>>>>> origin/master
             if (!File.Exists(pot))
             {
                 try
-                { //import Gracenote package
+                { 
                     var odjemalec = new GracenoteClient("962650182-16615324626BA4A3EC0A5EADD71428E5");
                     var Slika = odjemalec.Search(new SearchCriteria
                     {
@@ -106,6 +125,7 @@ namespace Predvajalnik_v_CSharp
                         SearchMode = SearchMode.BestMatchWithCoverArt,
                         SearchOptions = SearchOptions.ArtistImage
                     });
+<<<<<<< HEAD
                     Slika.Albums.First().Artwork.First().Download(pot); 
                 }
                 catch
@@ -114,6 +134,18 @@ namespace Predvajalnik_v_CSharp
                         string stran= "http://covers.slothradio.com/?adv=&artist="+artist+"&album="+album;
                     String html = new WebClient().DownloadString(stran);     
                
+=======
+                    Slika.Albums.First().Artwork.First().Download(pot); //0 album, 1 artist, 3 je lokacijađ
+                }
+                catch
+                {
+
+                    //try with other album art providers
+                    /*
+                     * string link = "http://covers.slothradio.com/?adv=&artist="+izvajalec_meta+"&album="+album_meta;
+                     */
+                    pot = "Privzeto";
+>>>>>>> origin/master
                 }
               
             }
