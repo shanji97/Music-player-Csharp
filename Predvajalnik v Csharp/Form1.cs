@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Predvajalnik_v_CSharp
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form,IDisposable
     {
         
         public Form1()
@@ -31,10 +31,7 @@ namespace Predvajalnik_v_CSharp
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite"))// preverimo,če na tej lokaciji osbtaja že kaka baza
             {
-
-               
-               
-                new Database().create_db();// new SQLITE.n//Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
+                 Database new_database = new Database(); new_database.create_db();  new_database.Dispose(); // new SQLITE.n//Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
             }
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -44,22 +41,16 @@ namespace Predvajalnik_v_CSharp
                 odpri();
             }
         }
-        //GLOBAL VARIABLES
-
-        List<string> s = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
-    Metadata metapodatki = new Metadata(); //A new object of the metadata class.
        
-     
 
-       Database poizvedba = new Database(); // SQL class to query the album art link.
+       List<string> seznam = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
+       //A new object of the metadata class.
        Playback song = new Playback();   // This will do the "play music thing".
-
-
-        private string globalni_string = ""; 
-        bool playing = false;
-        bool ponovi = false;
-        bool nakljucno = false;
-        short klik = 0, sekunde = 0, index = 0, s_nakljucno = 0, s_ponovi = 0; //The index will serve to determine the index of the audio file in the "skladba" collection.              
+       private string globalni_string = ""; 
+       bool playing = false;
+       bool ponovi = false;
+       bool nakljucno = false;
+       short klik = 0, sekunde = 0, index = 0, s_nakljucno = 0, s_ponovi = 0; //The index will serve to determine the index of the audio file in the "skladba" collection.              
 
         //Buttons
         //The "About" section
@@ -105,7 +96,7 @@ namespace Predvajalnik_v_CSharp
                 sekunde = 0;
                 if (ponovi == true)
                 {
-                    predvajaj(s[index]);
+                    predvajaj(seznam[index]);
                 }
                 else
                 {
@@ -125,7 +116,7 @@ namespace Predvajalnik_v_CSharp
                             index++;
                         }
                     }
-                    predvajaj(s[index]);
+                    predvajaj(seznam[index]);
                 }
             }
             cas = TimeSpan.FromSeconds(sekunde);
@@ -165,7 +156,7 @@ namespace Predvajalnik_v_CSharp
             {
                 if (!playing)
                 {
-                    predvajaj(s[index]);
+                    predvajaj(seznam[index]);
                 }
                 else
                 {
@@ -233,10 +224,10 @@ namespace Predvajalnik_v_CSharp
                 try
                 {
                     a_datoteke = openFileDialog1.FileNames;
-                    s.AddRange(a_datoteke);
-                    predvajaj(s[0]);
+                    seznam.AddRange(a_datoteke);
+                    predvajaj(seznam[0]);
                     listBox1.Items.Clear();
-                    Napolni_lisbox(s);
+                    Napolni_lisbox(seznam);
                     Array.Clear(a_datoteke, 0, a_datoteke.Length);
                     klik++;
                     trackBar1.Visible = true;
@@ -251,8 +242,9 @@ namespace Predvajalnik_v_CSharp
         private void metapodatek(string datoteka_za_metapodatke)
         {
             Bitmap slika;
-            metapodatki.Meta_podatki = datoteka_za_metapodatke;
-            datoteka_za_metapodatke = metapodatki.Meta_podatki;
+            
+           // metapodatki.Meta_podatki = datoteka_za_metapodatke;
+          //  datoteka_za_metapodatke = metapodatki.Meta_podatki;
             ushort id = 0;
             Label[] oznake = new Label[] { naslov, izvajalec, album, dolzina };
             foreach (Label oznaka in oznake)
@@ -274,8 +266,7 @@ namespace Predvajalnik_v_CSharp
             {
                 if (Preveri_povezavo() && album.Text != "Neznano" && izvajalec.Text != "Neznano")
                 {
-                    metapodatki.Album_art = album.Text + "," + izvajalec.Text + "," +
-                    naslov.Text;
+                    metapodatki.Album_art = album.Text + "," + izvajalec.Text + "," +      naslov.Text;
                     if (metapodatki.Album_art != "Privzeto")
                     {
                         try
@@ -290,7 +281,7 @@ namespace Predvajalnik_v_CSharp
                     }
                     else
                     {
-                        error_file(s[index]);
+                    //    error_file(seznam[index]);
                     }
                 }
                 else
@@ -299,7 +290,7 @@ namespace Predvajalnik_v_CSharp
                     {
                         //Create an icon and make changes that indicate the 
                     }
-                    error_file(s[index]);
+                  //  error_file(seznam[index]);
                 }
             }
         }
@@ -311,29 +302,26 @@ namespace Predvajalnik_v_CSharp
             sekunde = 0; 
             p_cas.Text = "00:00:00"; 
             playing = true;
-            if (!File.Exists(s[index]))
+            if (!File.Exists(seznam[index]))
             {
                 MessageBox.Show("Skladba s tem imenom, ne obstaja, preverite, če se datoteka nahaja na tem mestu, če ne ste jo morda izbrisali ", "Ne obstaja!");
-                s.Remove(s[index]);
-                Napolni_lisbox(s);
+                seznam.Remove(seznam[index]);
+                Napolni_lisbox(seznam);
                 if (index >= listBox1.Items.Count)
                 {
                     index--;
                 }
-                audio_file = s[index];
+                audio_file = seznam[index];
             }
-            metapodatek(s[index]);
+            metapodatek(seznam[index]);
             int cas = Convert.ToInt16(TimeSpan.Parse(dolzina.Text).TotalSeconds);
             trackBar1.Maximum = cas;
             timer1.Start();// začnemo s štetjem
 
-          
-            //poizvedba.(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
-
-            song.open_audio_file(s[index]);
+            song.open_audio_file(seznam[index]);
             song.play();
-     //       poizvedba.vnos_slike(izvajalec.Text + "," + album.Text + "," +metapodatki.Album_art);
-
+   
+     //Retrieve metadata
            
         }
     
@@ -360,11 +348,12 @@ namespace Predvajalnik_v_CSharp
         private void Napolni_lisbox(List<string> seznam)
         {
             listBox1.Items.Clear();
-            foreach (string napolni_listbox in seznam)
+            Metadata_version_2 object_for_fetching_the_title;
+            foreach (string fill_listbox in seznam)
             {
-              metapodatki.Meta_podatki = napolni_listbox;
-              globalni_string = metapodatki.Meta_podatki.Split(',')[0];
-              listBox1.Items.Add(globalni_string);
+                object_for_fetching_the_title = new Metadata_version_2(fill_listbox);
+                globalni_string = object_for_fetching_the_title.Title_of_the_song;
+                listBox1.Items.Add(globalni_string);
             }
         }
         //The function controlls buttons forward, back. It also controls the function to choose the song over the listbox.
@@ -388,14 +377,8 @@ namespace Predvajalnik_v_CSharp
                     }
                     else
                     {
-                        if ((index + 1) == listBox1.Items.Count)
-                        {
-                            index = 0;
-                        }
-                        else
-                        {
-                            index++;
-                        }
+                        if ((index + 1) == listBox1.Items.Count){ index = 0;}
+                        else {index++;}
                     }
                 }
                 else if (Funkcija == "Listbox")
@@ -425,15 +408,15 @@ namespace Predvajalnik_v_CSharp
                         }
                     }
                 }
-                predvajaj(s[index]);
+                predvajaj(seznam[index]);
                 playing = true;
             }
         }
 
         //If there is no album art or medata could not be read, generic images will be displayed
-        private void error_file(string type)
+        /*private void error_file(string type)
         {
-            /*
+            
             if (vrsta.Contains(".wav"))
             {
              //  pictureBox1.Image = Resource1.wav;
@@ -447,6 +430,10 @@ namespace Predvajalnik_v_CSharp
              //pictureBox1.Image = Resource1.flac;
             }
             */
+            private void Dispose()
+        {
+            
         }
-   }
+    }
 }
+

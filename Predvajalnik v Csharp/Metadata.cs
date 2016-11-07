@@ -58,11 +58,7 @@ namespace Predvajalnik_v_CSharp
             {
                 datoteka += a_dat.Properties.Duration.ToString(@"hh\:mm\:ss");
             }
-<<<<<<< HEAD
-   
-=======
-            
->>>>>>> origin/master
+
             return datoteka;
         }
         //The method trimms chars like "[,(,),]" and content between them.
@@ -99,20 +95,15 @@ namespace Predvajalnik_v_CSharp
         //Serching for the album art
         private string Prenos_slike(string datoteka)
         {
-<<<<<<< HEAD
+
             string album = datoteka.Split(',')[0];
             string artist = datoteka.Split(',')[1];
             string ime_skladbe_meta = datoteka.Split(',')[2];
             string pot =Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album + " " +artist + ".jpg";
-=======
 
-            string album_meta = datoteka.Split(',')[0];
-            string izvajalec_meta = datoteka.Split(',')[1];
-            string ime_skladbe_meta = datoteka.Split(',')[2];
-            string pot =
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album_meta + " " + izvajalec_meta + ".jpg";
->>>>>>> origin/master
-            if (!File.Exists(pot))
+
+           
+          if (!File.Exists(pot))
             {
                 try
                 { 
@@ -125,18 +116,10 @@ namespace Predvajalnik_v_CSharp
                         SearchMode = SearchMode.BestMatchWithCoverArt,
                         SearchOptions = SearchOptions.ArtistImage
                     });
-<<<<<<< HEAD
+
                     Slika.Albums.First().Artwork.First().Download(pot); 
                 }
-                catch
-                {
-                  
-                        string stran= "http://covers.slothradio.com/?adv=&artist="+artist+"&album="+album;
-                    String html = new WebClient().DownloadString(stran);     
-               
-=======
-                    Slika.Albums.First().Artwork.First().Download(pot); //0 album, 1 artist, 3 je lokacijađ
-                }
+                 
                 catch
                 {
 
@@ -144,12 +127,19 @@ namespace Predvajalnik_v_CSharp
                     /*
                      * string link = "http://covers.slothradio.com/?adv=&artist="+izvajalec_meta+"&album="+album_meta;
                      */
-                    pot = "Privzeto";
->>>>>>> origin/master
+
                 }
-              
+                Bitmap album_cover;
+
+
             }
             return pot;
         }
     }
+
+    /*class Metadata_writer:Metadata_version_2
+    {
+
+    }
+    */
 }
