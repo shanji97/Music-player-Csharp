@@ -22,7 +22,7 @@ namespace Predvajalnik_v_CSharp
             db_connection.Close();
         }
         //This method is going to select the link from the database when no album art is available
-        private string select_link_from_db(string artist, string album)
+        public string select_link_from_db(string artist, string album)
         {
             connect_to_db();
             string link = "";
