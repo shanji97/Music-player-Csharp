@@ -47,7 +47,7 @@ namespace Predvajalnik_v_CSharp
 
         //This method is going to insert the link of the album cover into the db, because, we don't want to search for it every time on the net
         
-        private void instert_into_or_update(string artist,string album,string link,string operation)
+        public void instert_into_or_update(string artist,string album,string link,string operation)
         {
             connect_to_db();
             try
