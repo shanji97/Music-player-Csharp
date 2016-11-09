@@ -6,17 +6,10 @@ namespace Predvajalnik_v_CSharp
     class Database
     {
         SQLiteConnection db_connection;
-
     
         SQLiteCommand command;
 
         private string sql, row, link;
-
-
-        
-
-
-        //DB connection method
     
         //DB creation
         public void create_db()
@@ -28,7 +21,6 @@ namespace Predvajalnik_v_CSharp
             command.ExecuteNonQuery();
             db_connection.Close();
         }
-
         //This method is going to select the link from the database when no album art is available
         private string select_link_from_db(string artist, string album)
         {
@@ -46,19 +38,15 @@ namespace Predvajalnik_v_CSharp
                 db_connection.Close();
             }
         }
-    
-       
-          //za vpis izvajalca, albuma in linka slike
-         //METHODS
+   
         private void connect_to_db()
         {
            db_connection = new SQLiteConnection("Data Source=" +Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite" + "; Version=3;");
             db_connection.Open();
         }
 
-
-        //This method is going to insert the link of the album cover into the db, because, we don't want to search for it every time
-        //
+        //This method is going to insert the link of the album cover into the db, because, we don't want to search for it every time on the net
+        
         private void instert_into_or_update(string artist,string album,string link,string operation)
         {
             connect_to_db();
@@ -75,19 +63,12 @@ namespace Predvajalnik_v_CSharp
               
                 command = new SQLiteCommand(sql, db_connection);
                 command.ExecuteNonQuery();
-                db_connection.Close();
             }
 
             finally
             {
                 db_connection.Close();
             }
-           
         }
-        public void insert_link_mannually()
-        {
-
-        }
-        
     }
 }
