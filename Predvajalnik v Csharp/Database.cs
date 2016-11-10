@@ -71,12 +71,8 @@ namespace Predvajalnik_v_CSharp
             {
                 db_connection.Close();
             }
-
-
-        }
-     
-
-        }
+     }
+            }
 
     }
 
