@@ -31,7 +31,7 @@ namespace Predvajalnik_v_CSharp
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite"))// preverimo,če na tej lokaciji osbtaja že kaka baza
             {
-                 Database new_database = new Database(); new_database.create_db();  new_database.Dispose(); // new SQLITE.n//Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
+                 Database new_database = new Database(); new_database.create_db();  // new SQLITE.n//Creating a DB for the links of the album covers that will be downloaded, if the DB doesn't exist. 
             }
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -41,10 +41,7 @@ namespace Predvajalnik_v_CSharp
                 odpri();
             }
         }
-       
-
        List<string> seznam = new List<string>(); //A list witch  contains paths of all the music files that we port them in the program.
-       //A new object of the metadata class.
        Playback song = new Playback();   // This will do the "play music thing".
        private string globalni_string = ""; 
        bool playing = false;
@@ -56,7 +53,7 @@ namespace Predvajalnik_v_CSharp
         //The "About" section
         private void oProgramuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AboutBox1().Show();
+            AboutBox1 a = new AboutBox1(); a.Show();
         }
         //Opening the menu openfile dialog
         private void skladbeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,9 +84,7 @@ namespace Predvajalnik_v_CSharp
             }
             else
             {
-
-              
-            song.stop_music();
+                song.stop_music();
 
                 timer1.Stop();
                 trackBar1.Value = 0;
@@ -160,13 +155,9 @@ namespace Predvajalnik_v_CSharp
                 }
                 else
                 {
-
-                 
-              song.stop_music();
-
-                 timer1.Stop();
-                 playing = false;
-                 
+                    song.stop_music();
+                    timer1.Stop();
+                    playing = false;       
                 }
             }
         }
@@ -266,8 +257,8 @@ namespace Predvajalnik_v_CSharp
             {
                 if (Preveri_povezavo() && album.Text != "Neznano" && izvajalec.Text != "Neznano")
                 {
-                    metapodatki.Album_art = album.Text + "," + izvajalec.Text + "," +      naslov.Text;
-                    if (metapodatki.Album_art != "Privzeto")
+                   // metapodatki.Album_art = album.Text + "," + izvajalec.Text + "," +      naslov.Text;
+                    if (!Preveri_povezavo())
                     {
                         try
                         {
@@ -320,21 +311,20 @@ namespace Predvajalnik_v_CSharp
 
             song.open_audio_file(seznam[index]);
             song.play();
-   
-     //Retrieve metadata
-           
+  
         }
     
         //The function connects to google to see if it can reach it, if not the program will search for album art.
         private bool Preveri_povezavo()
         {
-            try
+           try
             {
-                using (var klient = new WebClient())
+                using (var client = new WebClient())
                 {
-                    using (var try_open = klient.OpenRead("https://google.com"))
+                    using (var try_open = client.OpenRead("https://google.com"))
                     {
                         return true;
+
                     }
                 }
             }
@@ -342,16 +332,17 @@ namespace Predvajalnik_v_CSharp
             {
                 return false;
             }
+          
         }
         
         //The function fills the listbox with the audio files
         private void Napolni_lisbox(List<string> seznam)
         {
             listBox1.Items.Clear();
-            Metadata_version_2 object_for_fetching_the_title;
+            Metadata object_for_fetching_the_title;
             foreach (string fill_listbox in seznam)
             {
-                object_for_fetching_the_title = new Metadata_version_2(fill_listbox);
+                object_for_fetching_the_title = new Metadata(fill_listbox);
                 globalni_string = object_for_fetching_the_title.Title_of_the_song;
                 listBox1.Items.Add(globalni_string);
             }
@@ -429,11 +420,9 @@ namespace Predvajalnik_v_CSharp
             {
              //pictureBox1.Image = Resource1.flac;
             }
+            }
             */
-            private void Dispose()
-        {
-            
-        }
+           
     }
 }
 

@@ -1,125 +1,133 @@
-﻿using System;
+﻿//Useful articles to fetch metadata from files:
+//--------http://www.codeproject.com/Articles/6826/C-Windows-Media-Format-SDK-Translation
+//--------WMF SDK
+//--------http://stackoverflow.com/questions/5908811/metadata-in-wmf-file
+//--------http://www.codeproject.com/KB/audio-video/MetaDataReader.aspx
+//........http://www.microsoft.com/downloads/en/confirmation.aspx?FamilyID=d9c6f6e0-dd2b-427e-9787-73312bb62532
+
+
+using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+
+using System.Windows;
 using ParkSquare.Gracenote;
-//This class handles the metadata of the song.
 
 namespace Predvajalnik_v_CSharp
 {
     class Metadata
     {
-        //VARIABLES
-        private string audio_file;
-               
-        //PROPERTIES
-        public string Meta_podatki
-        {
-            get { return audio_file; }
-            set { audio_file = metapodatki(value); }
-        }
-        public string Album_art
-        {
-            get { return audio_file; }
-            set { audio_file = Prenos_slike(value); }
-        }
-        //METHODS
-        // Getting the metadata from the file with the help from Taglib.
-        // The Taglib library will be removed.
-        private string metapodatki(string datoteka)
-        {
-            
-            TagLib.File a_dat = TagLib.File.Create(datoteka);
-            if (a_dat.Tag.Title != null)
-            {
-                datoteka = a_dat.Tag.Title + ",";
-            }
-            if (datoteka.Contains(".wav") || a_dat.Tag.Title == null)
-            {
-                datoteka = trim_albuma(Path.GetFileName(datoteka), "pot") + ",";
-            }
-            if (a_dat.Tag.FirstPerformer != null)
-            {
-                datoteka += a_dat.Tag.FirstPerformer + ",";
-            }
-            else
-            {
-                datoteka += "Unknown,";
-            }
-            if (a_dat.Tag.Album != null)
-            {
-                datoteka += trim_albuma(a_dat.Tag.Album, "album") + ",";
-            }
-            else
-            {
-                datoteka += "Unknown,";
-            }
-            if (a_dat.Properties.Duration.ToString(@"hh\:mm\:ss") != null)
-            {
-                datoteka += a_dat.Properties.Duration.ToString(@"hh\:mm\:ss");
-            }
+        //variables
+        private string filepath, title, artist, album, link_to_picture, duration, path;
+        //other class instances
 
-            return datoteka;
-        }
-        //The method trimms chars like "[,(,),]" and content between them.
-        private string trim_albuma(string trimm, string type)
-        {
-            if (trimm.Contains("["))
-            {
-                trimm = trimm.Remove(trimm.IndexOf('['), (trimm.IndexOf(']') -
-                trimm.IndexOf('[') + 1));
-            }
-            if (trimm.Contains("("))
-            {
-                trimm = trimm.Remove(trimm.IndexOf('('), (trimm.IndexOf(')') -
-                trimm.IndexOf('(') + 1));
-            }
-            if (trimm.Contains("Disc"))
-            {
-                trimm = trimm.Remove(trimm.Length - 7);
-            }
-            if (trimm.Contains("CD"))
-            {
-                trimm = trimm.Remove(trimm.Length - 5);
-            }
-            if (trimm.Contains(".wav") || trimm.Contains(".mp3"))
-            {
-                trimm = trimm.Remove(trimm.IndexOf('.'), 4);
-            }
-            if (trimm.Contains(',') && type != "pot")
-            {
-                trimm = trimm.Replace(",", "");
-            }
-            return trimm;
-        }
-        //Serching for the album art
-        private string Prenos_slike(string datoteka)
+        //constructors
+        public Metadata(string filepath)
         {
 
-            string album = datoteka.Split(',')[0];
-            string artist = datoteka.Split(',')[1];
-            string ime_skladbe_meta = datoteka.Split(',')[2];
-            string pot =Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album + " " +artist + ".jpg";
-
-
-           
-          if (!File.Exists(pot))
+            this.filepath = filepath;
+            FileInfo information = new FileInfo(this.filepath);
+            title = trimm_the_info(information.Name, "song");
+        }
+        // properties
+        public string Title_of_the_song
+        {
+            get
             {
+                return title;
+            }
+        }
+        public string Artist_of_the_song
+        {
+            get
+            {
+                return artist;
+            }
+        }
+        public string Album_of_the_song
+        {
+            get
+            {
+                return album;
+            }
+        }
+
+
+
+        public string Duration_of_the_song
+        {
+            get
+            {
+                return duration;
+            }
+        }
+
+
+
+        //other class instances
+        // SQL class to query the album art link.
+
+        //methods
+
+        static private string trimm_the_info(string some_string_to_trimm, string type_of_metadata)
+        {
+            if (some_string_to_trimm.Contains("["))
+            {
+                some_string_to_trimm = some_string_to_trimm.Remove(some_string_to_trimm.IndexOf('['), (some_string_to_trimm.IndexOf(']') -
+                some_string_to_trimm.IndexOf('[') + 1));
+            }
+            if (some_string_to_trimm.Contains("("))
+            {
+                some_string_to_trimm = some_string_to_trimm.Remove(some_string_to_trimm.IndexOf('('), some_string_to_trimm.IndexOf(')') -
+                some_string_to_trimm.IndexOf('(') + 1);
+            }
+            if (some_string_to_trimm.Contains("Disc"))
+            {
+                some_string_to_trimm = some_string_to_trimm.Remove(some_string_to_trimm.Length - 7);
+            }
+            if (some_string_to_trimm.Contains("CD"))
+            {
+                some_string_to_trimm = some_string_to_trimm.Remove(some_string_to_trimm.Length - 5);
+            }
+            if (some_string_to_trimm.Contains(".wav") || some_string_to_trimm.Contains(".mp3"))
+            {
+                some_string_to_trimm = some_string_to_trimm.Remove(some_string_to_trimm.IndexOf('.'), 4);
+            }
+            if (some_string_to_trimm.Contains(".flac"))
+            {
+                some_string_to_trimm = some_string_to_trimm.Remove(some_string_to_trimm.IndexOf('.'), 5);
+            }
+            if (some_string_to_trimm.Contains(',') && type_of_metadata != "pot")
+            {
+                some_string_to_trimm = some_string_to_trimm.Replace(",", "");
+            }
+            return some_string_to_trimm;
+        }
+        static private void get_album_art_cover(string title_of_the_song, string album_of_the_song, string artist_of_the_song)
+        {
+            try
+            {
+
+
+
                 try
-                { 
+                {
                     var odjemalec = new GracenoteClient("962650182-16615324626BA4A3EC0A5EADD71428E5");
                     var Slika = odjemalec.Search(new SearchCriteria
                     {
-                        TrackTitle = ime_skladbe_meta,
-                        AlbumTitle = album,
-                        Artist = artist,
+                        TrackTitle = title_of_the_song,
+                        AlbumTitle = album_of_the_song,
+                        Artist = artist_of_the_song,
+
                         SearchMode = SearchMode.BestMatchWithCoverArt,
                         SearchOptions = SearchOptions.ArtistImage
                     });
 
-                    Slika.Albums.First().Artwork.First().Download(pot); 
+                    Slika.Albums.First().Artwork.First().Download(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album_of_the_song + " " + artist_of_the_song + ".jpg");
                 }
-                 
+
                 catch
                 {
 
@@ -129,17 +137,21 @@ namespace Predvajalnik_v_CSharp
                      */
 
                 }
-                Bitmap album_cover;
+                Database query = new Database();
+                query.insert_into_or_update(artist_of_the_song, album_of_the_song, "link (to fetch)", "insert");
 
+                var album_cover = new Bitmap(Image.FromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album_of_the_song + " " + artist_of_the_song + ".jpg"));
 
             }
-            return pot;
+            catch
+            {
+
+            }
+
         }
-    }
 
-    /*class Metadata_writer:Metadata_version_2
-    {
+
 
     }
-    */
+
 }

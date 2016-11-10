@@ -100,10 +100,7 @@ namespace Predvajalnik_v_CSharp
         {
             try
             {
-                
-
-
-                try
+              try
                 {
                     var odjemalec = new GracenoteClient("962650182-16615324626BA4A3EC0A5EADD71428E5");
                     var Slika = odjemalec.Search(new SearchCriteria
@@ -118,7 +115,6 @@ namespace Predvajalnik_v_CSharp
 
                     Slika.Albums.First().Artwork.First().Download(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\AlbumArt\" + album_of_the_song + " " + artist_of_the_song + ".jpg");
                 }
-
                 catch
                 {
 
@@ -126,8 +122,7 @@ namespace Predvajalnik_v_CSharp
                     /*
                      * string link = "http://covers.slothradio.com/?adv=&artist="+izvajalec_meta+"&album="+album_meta;
                      */
-
-                }
+               }
                 Database query = new Database();
                 query.insert_into_or_update(artist_of_the_song, album_of_the_song, "link (to fetch)", "insert");
 

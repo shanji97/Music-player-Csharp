@@ -3,19 +3,20 @@ using System.Data.SQLite;
 
 namespace Predvajalnik_v_CSharp
 {
-    class Database : IDisposable
+    class Database
     {
         SQLiteConnection db_connection;
+
         SQLiteCommand command;
 
         private string sql, row, link;
 
-
-
-
-
         //DB connection method
-
+        private void connect_to_db()
+        {
+            db_connection = new SQLiteConnection("Data Source=" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite" + "; Version=3;");
+            db_connection.Open();
+        }
         //DB creation
         public void create_db()
         {
@@ -26,9 +27,8 @@ namespace Predvajalnik_v_CSharp
             command.ExecuteNonQuery();
             db_connection.Close();
         }
-
         //This method is going to select the link from the database when no album art is available
-        private string select_link_from_db(string artist, string album)
+        public string select_link_from_db(string artist, string album)
         {
             connect_to_db();
             string link = "";
@@ -45,19 +45,11 @@ namespace Predvajalnik_v_CSharp
             }
         }
 
-
-        //za vpis izvajalca, albuma in linka slike
         //METHODS
-        private void connect_to_db()
-        {
-            db_connection = new SQLiteConnection("Data Source=" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Music Player\Povezave_za_pesmi.sqlite" + "; Version=3;");
-            db_connection.Open();
-        }
+       //This method is going to insert the link of the album cover into the db, because, we don't want to search for it every time on the net
+        
+        public void insert_into_or_update(string artist,string album,string link,string operation)
 
-
-        //This method is going to insert the link of the album cover into the db, because, we don't want to search for it every time
-        //
-        public void insert_into_or_update(string artist, string album, string link, string operation)
         {
             connect_to_db();
             try
@@ -73,7 +65,6 @@ namespace Predvajalnik_v_CSharp
 
                 command = new SQLiteCommand(sql, db_connection);
                 command.ExecuteNonQuery();
-                db_connection.Close();
             }
 
             finally
@@ -81,9 +72,11 @@ namespace Predvajalnik_v_CSharp
                 db_connection.Close();
             }
 
+
         }
      
 
-        
+        }
+
     }
-}
+
