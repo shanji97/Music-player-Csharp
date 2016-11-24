@@ -1,2 +1,0 @@
-This is simple audio player. I made it for my vocational matura. It serves as a reference.
-In the comming months I'll try to rewrte it with no external library.
